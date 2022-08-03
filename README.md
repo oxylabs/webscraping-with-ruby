@@ -11,7 +11,7 @@ Ruby is a time-tested, open-source programming language. Its first version was r
 We’ll begin with a step-by-step overview of scraping static public web pages first and shift our focus to the means of scraping dynamic pages. While the first approach works with most websites, it will not function with the dynamic pages that use JavaScript to render the content. To handle these sites, we’ll look at headless browsers.
 
 
-For a detailed explanation, see our [blog post](https://oxylabs.io/blog/web-scraping-with-ruby).
+For a detailed explanation, see our [blog post](https://oxy.yt/Dr5a).
 
 
 ## Installing Ruby
@@ -180,4 +180,4 @@ CSV.open('quotes.csv', 'w+', write_headers: true,
 end
 ```
 
-If you wish to find out more about web scraping with Ruby, see our [blog post](https://oxylabs.io/blog/web-scraping-with-ruby).
+If you wish to find out more about web scraping with Ruby, see our [blog post](https://oxy.yt/Dr5a).
