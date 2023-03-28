@@ -1,0 +1,31 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    childprocess (4.1.0)
+    csv (3.2.6)
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
+    mini_mime (1.1.2)
+    multi_xml (0.6.0)
+    nokogiri (1.14.2-x86_64-linux)
+      racc (~> 1.4)
+    racc (1.6.2)
+    rexml (3.2.5)
+    rubyzip (2.3.2)
+    selenium-webdriver (4.1.0)
+      childprocess (>= 0.5, < 5.0)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  csv
+  httparty
+  nokogiri
+  selenium-webdriver
+
+BUNDLED WITH
+   2.2.32

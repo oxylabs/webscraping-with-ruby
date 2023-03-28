@@ -16,19 +16,19 @@ For a detailed explanation, see our [blog post](https://oxy.yt/Dr5a).
 
 ## Installing Ruby
 
-To install Ruby on **Windows**, run the following:
+To install Ruby on **Windows**, run the following:
 
 ```batch
 choco install ruby
 ```
 
-To install Ruby on **macOS**, use a package manager such as [Homebrew](https://brew.sh/). Enter the following in the terminal:
+To install Ruby on **macOS**, use a package manager such as [Homebrew](https://brew.sh/). Enter the following in the terminal:
 
 ```shell
 brew install ruby
 ```
 
-For **Linux**, use the package manager for your distro. For example, run the following for Ubuntu:
+For **Linux**, use the package manager for your distro. For example, run the following for Ubuntu:
 
 ```shell
 sudo apt install ruby-full
@@ -36,7 +36,7 @@ sudo apt install ruby-full
 
 ## Scraping static pages
 
-In this section, we’ll write a web scraper that can scrape data from [https://books.toscrape.com](https://books.toscrape.com/). It is a dummy book store for practicing web scraping with static websites.
+In this section, we’ll write a web scraper that can scrape data from [https://books.toscrape.com](https://books.toscrape.com/). It is a dummy book store for practicing web scraping with static websites.
 
 ### Installing required gems
 
