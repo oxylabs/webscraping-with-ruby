@@ -2,7 +2,6 @@
 
 [![Oxylabs promo code](https://user-images.githubusercontent.com/129506779/250792357-8289e25e-9c36-4dc0-a5e2-2706db797bb5.png)](https://oxylabs.go2cloud.org/aff_c?offer_id=7&aff_id=877&url_id=112)
 
-
 [<img src="https://img.shields.io/static/v1?label=&message=Ruby&color=brightgreen" />](https://github.com/topics/ruby) [<img src="https://img.shields.io/static/v1?label=&message=Web%20Scraping&color=important" />](https://github.com/topics/web-scraping)
 
 - [Installing Ruby](#installing-ruby)
@@ -13,9 +12,7 @@ Ruby is a time-tested, open-source programming language. Its first version was r
 
 We’ll begin with a step-by-step overview of scraping static public web pages first and shift our focus to the means of scraping dynamic pages. While the first approach works with most websites, it will not function with the dynamic pages that use JavaScript to render the content. To handle these sites, we’ll look at headless browsers.
 
-
 For a detailed explanation, see our [blog post](https://oxy.yt/Dr5a).
-
 
 ## Installing Ruby
 
@@ -39,7 +36,7 @@ sudo apt install ruby-full
 
 ## Scraping static pages
 
-In this section, we’ll write a web scraper that can scrape data from [https://books.toscrape.com](https://books.toscrape.com/). It is a dummy book store for practicing web scraping with static websites.
+In this section, we’ll write a web scraper that can scrape data from [https://sandbox.oxylabs.io/products])(https://sandbox.oxylabs.io/products) . It is a dummy video game store for practicing web scraping with static websites.
 
 ### Installing required gems
 
@@ -53,7 +50,7 @@ gem install csv
 
 ```ruby
 require 'httparty'
-response = HTTParty.get('https://books.toscrape.com/')
+response = HTTParty.get('https://sandbox.oxylabs.io/products')
 if response.code == 200
     puts response.body
 else
@@ -72,48 +69,49 @@ document = Nokogiri::HTML4(response.body)
 ![](https://oxylabs.io/blog/images/2021/12/book_container.png)
 
 ```ruby
-books = []
+games = []
 50.times do |i|
-  url = "https://books.toscrape.com/catalogue/page-#{i + 1}.html"
+  url = "https://sandbox.oxylabs.io/products?page={i+1}"
   response = HTTParty.get(url)
   document = Nokogiri::HTML(response.body)
-  all_book_containers = document.css('article.product_pod')
+  all_game_containers = document.css('.product-card')
 
-  all_book_containers.each do |container|
-    title = container.css('.image_container > a > img').first['alt']
-    price = container.css('.price_color').text.delete('^0-9.')
-    availability = container.css('.availability').text.strip
-    book = [title, price, availability]
-    books << book
+  all_game_containers.each do |container|
+    title = container.css('h4').text.strip
+    price = container.css('.price-wrapper').text.delete('^0-9.')
+    category_elements = container.css('.category span')
+    categories = category_elements.map { |elem| elem.text.strip }.join(', ')
+    game = [title, price, categories]
   end
-
 end
+
 ```
 
 ### Writing scraped data to a CSV file
 
 ```ruby
 require 'csv'
-CSV.open('books.csv', 'w+',
-         write_headers: true,
-         headers: %w[Title Price Availability]) do |csv|
-
+CSV.open(
+  'games.csv',
+  'w+',
+  write_headers: true,
+  headers: %w[Title, Price, Categories]
+) do |csv|
   50.times do |i|
-    url = "https://books.toscrape.com/catalogue/page-#{i + 1}.html"
-    response = HTTParty.get(url)
-    document = Nokogiri::HTML(response.body)
-    all_book_containers = document.css('article.product_pod')
-
-    all_book_containers.each do |container|
-      title = container.css('h3 a').first['title']
-      price = container.css('.price_color').text.delete('^0-9.')
-      availability = container.css('.availability').text.strip
-      book = [title, price, availability]
-
-      csv << book
+    response = HTTParty.get("https://sandbox.oxylabs.io/products?page={i+1}")
+    document = Nokogiri::HTML4(response.body)
+    all_game_containers = document.css('.product-card')
+    all_games_containers.each do |container|
+      title = container.css('h4').text.strip
+      price = container.css('.price-wrapper').text.delete('^0-9.')
+      category_elements = container.css('.category span')
+      categories = category_elements.map { |elem| elem.text.strip }.join(', ')    
+      game = [title, price, categories]
+      csv << game
     end
   end
 end
+
 ```
 
 ## Scraping dynamic pages

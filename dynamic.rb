@@ -2,8 +2,9 @@ require 'selenium-webdriver'
 require 'csv'
 
 options = Selenium::WebDriver::Chrome::Options.new
-options.headless!
-driver = Selenium::WebDriver.for(:chrome, capabilities: [options])
+options.add_argument('--headless')
+driver = Selenium::WebDriver.for(:chrome, options: options)
+
 
 driver.get 'http://quotes.toscrape.com/js/'
 
